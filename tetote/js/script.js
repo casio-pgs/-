@@ -15,9 +15,11 @@ $(function () {
    delay: 1000, // 1秒後に次のスライド
    disableOnInteraction: false, // 矢印をクリックしても自動再生を止めない
   },
+
+  // スライドにクラスを付与
   on: {
     init: function () {
-        // スライドにクラスを付与
+
         this.slides.forEach((slide, index) => {
             if ((index + 1) % 2 === 0) {
                 slide.classList.add('even'); // 偶数
@@ -27,6 +29,7 @@ $(function () {
         });
     },
 }
+
  });
 
 
@@ -36,15 +39,23 @@ $(function () {
  ------------------------- */
 const $trigger = $('#hamburger');
 const $nav = $('#navmenu');
+const svg = $('.header__logo-svg'); // または $('#your-svg-id');
 
-$trigger.on('click',function () {
- const expanded = $(this).attr('aria-expanded') === 'true';// 'true'と文字列として比較
- if (!expanded){// expanded が false の場合、メニューを開く
-  openMenu();
- } else{
-  closeMenu();
- }
+
+$trigger.on('click', function () {
+    $("#navmenu").toggleClass('hyouji'); // クラスのトグル（追加と削除を切り替え）
+    $(svg).toggleClass("--black"); // svgクラスに--blackクラスを追加/削除
+
+    // .hyoujiクラスが追加された場合、fadeInアニメーションを実行する
+    if ($("#navmenu").hasClass('.navmenu')) {
+        $("#navmenu").fadeIn(300);
+    } else {
+        $("#navmenu").fadeOut(300);
+    }
 });
+
+
+
 
 function openMenu(){
  $trigger.attr('aria-expanded',true).attr('aria-label','メニューを閉じる');
